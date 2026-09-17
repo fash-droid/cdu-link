@@ -3,20 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Keandalan CDU | Pertamina RU VI Balongan</title>
+    <title>Keandalan Kilang | Pertamina</title>
     <meta
       name="description"
-      content="Analisis keandalan dan optimasi pemeliharaan Crude Distillation Unit RU VI Pertamina Balongan"
+      content="Analisis keandalan dan pemeliharaan kilang Pertamina"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Google+Sans+Text:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
         color-scheme: light;
-        --biru: #0b2f9f;
-        --merah: #e21f23;
+        --biru: #1a73e8;
+        --biru-muda: #e8f0fe;
+        --teks: #202124;
+        --teks-2: #5f6368;
+        --garis: #dadce0;
+        --merah: #d93025;
+        --merah-muda: #fce8e6;
       }
       * {
         box-sizing: border-box;
@@ -24,54 +30,55 @@
       body {
         margin: 0;
         min-height: 100vh;
-        background: #f8fafc;
-        color: #0f172a;
-        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        background: #f8f9fa;
+        color: var(--teks);
+        font-family: 'Google Sans Text', 'Google Sans', Roboto, system-ui, sans-serif;
         display: grid;
         place-items: center;
-        padding: 24px;
+        padding: 24px 16px;
       }
       main {
         width: 100%;
-        max-width: 480px;
+        max-width: 460px;
         background: #fff;
-        border: 1px solid #e2e8f0;
+        border: 1px solid var(--garis);
         border-radius: 12px;
         padding: 32px 28px;
         text-align: center;
       }
       .logo {
-        width: 42px;
-        height: 42px;
+        width: 40px;
+        height: 40px;
         margin: 0 auto 14px;
       }
       h1 {
         margin: 0 0 4px;
-        font-size: 20px;
-        font-weight: 700;
+        font-family: 'Google Sans', 'Google Sans Text', Roboto, sans-serif;
+        font-size: 22px;
+        font-weight: 400;
       }
       .sub {
         margin: 0 0 22px;
         font-size: 13px;
-        color: #64748b;
+        color: var(--teks-2);
       }
       .status {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 8px 14px;
+        padding: 7px 14px;
         border-radius: 999px;
-        background: #eef2fd;
-        color: var(--biru);
-        font-size: 12.5px;
-        font-weight: 600;
-        margin-bottom: 18px;
+        background: var(--biru-muda);
+        color: #1967d2;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 16px;
       }
       .dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: var(--biru);
+        background: currentColor;
         animation: kedip 1.2s infinite;
       }
       @keyframes kedip {
@@ -85,135 +92,150 @@
       }
       p.pesan {
         margin: 0 0 20px;
-        font-size: 13.5px;
+        font-size: 14px;
         line-height: 1.55;
-        color: #475569;
+        color: var(--teks-2);
       }
       button {
-        display: inline-block;
-        padding: 10px 20px;
+        padding: 9px 22px;
         border-radius: 999px;
-        border: 1px solid var(--biru);
+        border: 0;
         background: var(--biru);
         color: #fff;
         font: inherit;
-        font-weight: 600;
-        font-size: 13px;
+        font-weight: 500;
+        font-size: 14px;
         cursor: pointer;
-        transition: background 0.15s;
       }
       button:hover {
-        background: #0a2680;
+        background: #1765cc;
       }
-      button:disabled {
-        cursor: wait;
-        opacity: 0.6;
+      button[hidden] {
+        display: none;
       }
       .kecil {
-        margin-top: 16px;
-        font-size: 11px;
-        color: #94a3b8;
+        margin: 18px 0 0;
+        font-size: 12px;
+        color: #80868b;
       }
-      a.kecil {
-        color: inherit;
-        text-decoration: underline;
+      .galat {
+        background: var(--merah-muda);
+        color: var(--merah);
       }
-      .error {
-        background: #fdeef0;
-        color: #9d1418;
-      }
-      .error .dot {
-        background: #9d1418;
+      .galat .dot {
+        animation: none;
       }
     </style>
   </head>
   <body>
     <main>
       <svg class="logo" viewBox="0 0 26 26" aria-hidden="true">
-        <path d="M4 17.5 12.4 4l3.1 5.1-8.4 13.4H4z" fill="#0b2f9f" />
-        <path d="M10.6 22.5 19 9l3.1 5.1-8.4 8.4h-3.1z" fill="#1f9d68" />
-        <path d="M17.8 22.5 22.6 17l1.4 2.3-3.1 3.2h-3.1z" fill="#e21f23" />
+        <path d="M4 17.5 12.4 4l3.1 5.1-8.4 13.4H4z" fill="#1a73e8" />
+        <path d="M10.6 22.5 19 9l3.1 5.1-8.4 8.4h-3.1z" fill="#1e8e3e" />
+        <path d="M17.8 22.5 22.6 17l1.4 2.3-3.1 3.2h-3.1z" fill="#d93025" />
       </svg>
-      <h1>Keandalan CDU</h1>
-      <p class="sub">Pertamina RU VI Balongan · Unit 11</p>
-
-      <div id="status" class="status">
+      <h1>Keandalan Kilang</h1>
+      <p class="sub">Analisis keandalan dan pemeliharaan kilang Pertamina</p>
+      <div id="status" class="status" role="status">
         <span class="dot"></span>
         <span id="status-teks">Membuka aplikasi</span>
       </div>
-
-      <p id="pesan" class="pesan">
-        Sedang meneruskan Anda ke aplikasi. Kalau tidak berpindah dalam beberapa detik, tekan
-        tombol di bawah.
-      </p>
-
-      <button id="tombol" disabled>Buka aplikasi</button>
-
+      <p id="pesan" class="pesan">Sedang mencari server aplikasi.</p>
+      <button id="tombol" hidden>Coba lagi</button>
       <p class="kecil">
-        Alamat aplikasi bisa berubah dari waktu ke waktu, tetapi halaman ini tetap.
-        Simpan halaman ini sebagai bookmark.
+        Alamat server dapat berubah, tetapi halaman ini tetap. Simpan halaman ini sebagai bookmark.
       </p>
     </main>
-
     <script>
-      // ================================================================
-      // Ambil URL aktif dari url.json (di repo yang sama), lalu redirect.
-      // Kalau url.json belum berisi (backend baru diaktifkan pertama kali),
-      // atau tunnel sedang mati, tampilkan pesan dan tombol coba lagi.
-      // ================================================================
+      // Alamat server dibaca dari url.json, yang diperbarui otomatis oleh
+      // server setiap kali alamatnya berganti. Halaman ini hanya meneruskan ke
+      // alamat yang benar-benar menjawab. Bila server sedang menyambung ulang,
+      // misalnya setelah sinyal internet laptop server putus, halaman ini
+      // menunggu dan mencoba lagi alih-alih membuka alamat yang sudah mati.
+      const SUMBER = [
+        'url.json',
+        'https://raw.githubusercontent.com/fash-droid/cdu-link/main/url.json',
+      ]
+      const JEDA_MS = 5000
+      const BATAS_COBA = 36 // sekitar tiga menit
+
       const STATUS = document.getElementById('status')
       const TEKS = document.getElementById('status-teks')
       const PESAN = document.getElementById('pesan')
       const TOMBOL = document.getElementById('tombol')
 
-      function tampilkanGalat(msg) {
-        STATUS.classList.add('error')
-        TEKS.textContent = 'Aplikasi belum aktif'
-        PESAN.textContent = msg
-        TOMBOL.disabled = true
-        TOMBOL.textContent = 'Coba lagi'
-        TOMBOL.disabled = false
-        TOMBOL.onclick = () => location.reload()
+      function batasWaktu(ms) {
+        if (window.AbortSignal && AbortSignal.timeout) return AbortSignal.timeout(ms)
+        const c = new AbortController()
+        setTimeout(() => c.abort(), ms)
+        return c.signal
       }
 
-      async function bukaAplikasi() {
-        try {
-          // Cache-buster supaya CDN GitHub Pages tidak menyajikan url.json lama.
-          const r = await fetch('url.json?ts=' + Date.now(), { cache: 'no-store' })
-          if (!r.ok) throw new Error('url.json HTTP ' + r.status)
-          const data = await r.json()
-          if (!data.url || !/^https?:\/\//.test(data.url)) {
-            tampilkanGalat(
-              'Alamat aplikasi belum tercatat. Kalau Anda pengelolanya, pastikan PC ' +
-                'server menyala dan skrip terowongan aktif.',
-            )
-            return
-          }
-
-          // Cek apakah backend hidup: coba /api/health dulu (opsional cepat).
-          TEKS.textContent = 'Menghubungkan ke server'
+      async function daftarAlamat() {
+        const keluar = []
+        for (const s of SUMBER) {
           try {
-            const h = await fetch(data.url + '/api/health', {
+            const r = await fetch(s + '?ts=' + Date.now(), {
               cache: 'no-store',
-              signal: AbortSignal.timeout(6000),
+              signal: batasWaktu(6000),
             })
-            if (!h.ok) throw new Error('health HTTP ' + h.status)
+            if (!r.ok) continue
+            const d = await r.json()
+            if (d && /^https:\/\//.test(d.url || '') && !keluar.includes(d.url)) keluar.push(d.url)
           } catch (e) {
-            // Tetap redirect walau health gagal (mungkin CORS): aplikasi utamanya di URL akar.
-            console.warn('health check gagal, tetap meneruskan:', e)
+            console.warn('gagal membaca', s, e)
           }
+        }
+        return keluar
+      }
 
-          TEKS.textContent = 'Meneruskan'
-          location.replace(data.url + '/')
+      async function menjawab(url) {
+        try {
+          const r = await fetch(url + '/api/health', {
+            cache: 'no-store',
+            signal: batasWaktu(8000),
+          })
+          return r.ok
         } catch (e) {
-          console.error(e)
-          tampilkanGalat(
-            'Belum bisa membaca alamat aplikasi. Coba muat ulang halaman ini beberapa saat lagi.',
-          )
+          return false
         }
       }
 
-      bukaAplikasi()
+      function tampilkanGalat() {
+        STATUS.classList.add('galat')
+        TEKS.textContent = 'Server belum dapat dihubungi'
+        PESAN.textContent =
+          'Laptop server mungkin mati atau belum tersambung ke internet. Pengelola dapat ' +
+          'membuka "Kontrol Web Keandalan" di laptop server dan memilih Nyalakan ulang, ' +
+          'lalu tekan tombol di bawah.'
+        TOMBOL.hidden = false
+      }
+
+      async function coba(ke) {
+        STATUS.classList.remove('galat')
+        TOMBOL.hidden = true
+        TEKS.textContent = ke === 1 ? 'Menghubungkan ke server' : 'Server sedang menyambung ulang'
+        const alamat = await daftarAlamat()
+        for (const url of alamat) {
+          if (await menjawab(url)) {
+            TEKS.textContent = 'Membuka aplikasi'
+            PESAN.textContent = 'Server ditemukan.'
+            location.replace(url + '/')
+            return
+          }
+        }
+        if (ke >= BATAS_COBA) {
+          tampilkanGalat()
+          return
+        }
+        PESAN.textContent =
+          'Alamat server sedang diperbarui, biasanya selesai dalam satu menit. ' +
+          'Halaman ini mencoba lagi dengan sendirinya.'
+        setTimeout(() => coba(ke + 1), JEDA_MS)
+      }
+
+      TOMBOL.onclick = () => coba(1)
+      coba(1)
     </script>
   </body>
 </html>
