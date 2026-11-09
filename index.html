@@ -134,30 +134,32 @@
         <path d="M10.6 22.5 19 9l3.1 5.1-8.4 8.4h-3.1z" fill="#1e8e3e" />
         <path d="M17.8 22.5 22.6 17l1.4 2.3-3.1 3.2h-3.1z" fill="#d93025" />
       </svg>
-      <h1>Keandalan Kilang</h1>
+      <h1>Reliability &amp; Maintenance</h1>
       <p class="sub">Analisis keandalan dan pemeliharaan kilang Pertamina</p>
       <div id="status" class="status" role="status">
         <span class="dot"></span>
-        <span id="status-teks">Membuka aplikasi</span>
+        <span id="status-teks">Membuka web</span>
       </div>
-      <p id="pesan" class="pesan">Sedang mencari server aplikasi.</p>
-      <button id="tombol" hidden>Coba lagi</button>
+      <p id="pesan" class="pesan">Sedang meneruskan ke web. Siapkan kode akses dari Divisi R&amp;M.</p>
+      <button id="tombol" hidden>Buka web</button>
       <p class="kecil">
-        Alamat server dapat berubah, tetapi halaman ini tetap. Simpan halaman ini sebagai bookmark.
+        Alamat web kini tetap: <a id="tautan" href="https://keandalan.verifikasirbd.com">keandalan.verifikasirbd.com</a>.
+        Simpan alamat itu sebagai bookmark.
       </p>
     </main>
     <script>
-      // Alamat server dibaca dari url.json, yang diperbarui otomatis oleh
-      // server setiap kali alamatnya berganti. Halaman ini hanya meneruskan ke
-      // alamat yang benar-benar menjawab. Bila server sedang menyambung ulang,
-      // misalnya setelah sinyal internet laptop server putus, halaman ini
-      // menunggu dan mencoba lagi alih-alih membuka alamat yang sudah mati.
+      // Sejak 9 November 2026 web berjalan di situs Cloudflare Pages dengan alamat tetap
+      // (SITUS) yang hidup tanpa bergantung laptop server; halaman data selalu terbuka,
+      // sedangkan Iterasi dan Asisten menunggu server laptop. Karena itu halaman ini tidak
+      // lagi menunggu /api/health: cukup memastikan situs terjangkau, lalu meneruskan.
+      // url.json tetap dibaca lebih dulu supaya alamat dapat diganti tanpa mengubah halaman ini.
+      const SITUS = 'https://keandalan.verifikasirbd.com'
       const SUMBER = [
         'url.json',
         'https://raw.githubusercontent.com/fash-droid/cdu-link/main/url.json',
       ]
-      const JEDA_MS = 5000
-      const BATAS_COBA = 36 // sekitar tiga menit
+      const JEDA_MS = 4000
+      const BATAS_COBA = 5 // sekitar dua puluh detik, lalu tombol buka langsung
 
       const STATUS = document.getElementById('status')
       const TEKS = document.getElementById('status-teks')
@@ -186,55 +188,52 @@
             console.warn('gagal membaca', s, e)
           }
         }
+        if (!keluar.includes(SITUS)) keluar.push(SITUS)
         return keluar
       }
 
-      async function menjawab(url) {
+      async function terjangkau(url) {
+        // Situs lintas asal: permintaan no-cors cukup untuk tahu alamatnya hidup,
+        // tanpa membaca isinya dan tanpa bergantung pada server laptop.
         try {
-          const r = await fetch(url + '/api/health', {
-            cache: 'no-store',
-            signal: batasWaktu(8000),
-          })
-          return r.ok
+          await fetch(url + '/', { mode: 'no-cors', cache: 'no-store', signal: batasWaktu(8000) })
+          return true
         } catch (e) {
           return false
         }
       }
 
-      function tampilkanGalat() {
+      function tampilkanGalat(tujuan) {
         STATUS.classList.add('galat')
-        TEKS.textContent = 'Server belum dapat dihubungi'
+        TEKS.textContent = 'Web belum dapat dihubungi dari jaringan Anda'
         PESAN.textContent =
-          'Laptop server mungkin mati atau belum tersambung ke internet. Pengelola dapat ' +
-          'membuka "Kontrol Web Keandalan" di laptop server dan memilih Nyalakan ulang, ' +
-          'lalu tekan tombol di bawah.'
+          'Periksa sambungan internet, lalu tekan tombol di bawah untuk membuka web secara langsung.'
         TOMBOL.hidden = false
+        TOMBOL.onclick = () => location.replace(tujuan + '/')
       }
 
       async function coba(ke) {
         STATUS.classList.remove('galat')
         TOMBOL.hidden = true
-        TEKS.textContent = ke === 1 ? 'Menghubungkan ke server' : 'Server sedang menyambung ulang'
+        TEKS.textContent = ke === 1 ? 'Membuka web' : 'Mencoba lagi'
         const alamat = await daftarAlamat()
+        document.getElementById('tautan').href = alamat[0] || SITUS
         for (const url of alamat) {
-          if (await menjawab(url)) {
-            TEKS.textContent = 'Membuka aplikasi'
-            PESAN.textContent = 'Server ditemukan.'
+          if (await terjangkau(url)) {
+            TEKS.textContent = 'Meneruskan'
+            PESAN.textContent = 'Web ditemukan. Masukkan kode akses pada halaman berikutnya.'
             location.replace(url + '/')
             return
           }
         }
         if (ke >= BATAS_COBA) {
-          tampilkanGalat()
+          tampilkanGalat(alamat[0] || SITUS)
           return
         }
-        PESAN.textContent =
-          'Alamat server sedang diperbarui, biasanya selesai dalam satu menit. ' +
-          'Halaman ini mencoba lagi dengan sendirinya.'
+        PESAN.textContent = 'Web belum terjangkau, mencoba lagi dalam beberapa detik.'
         setTimeout(() => coba(ke + 1), JEDA_MS)
       }
 
-      TOMBOL.onclick = () => coba(1)
       coba(1)
     </script>
   </body>
