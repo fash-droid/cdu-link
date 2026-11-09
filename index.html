@@ -154,6 +154,7 @@
       // lagi menunggu /api/health: cukup memastikan situs terjangkau, lalu meneruskan.
       // url.json tetap dibaca lebih dulu supaya alamat dapat diganti tanpa mengubah halaman ini.
       const SITUS = 'https://keandalan.verifikasirbd.com'
+      const SITUS_CADANGAN = 'https://keandalan-kilang.pages.dev'
       const SUMBER = [
         'url.json',
         'https://raw.githubusercontent.com/fash-droid/cdu-link/main/url.json',
@@ -189,6 +190,8 @@
           }
         }
         if (!keluar.includes(SITUS)) keluar.push(SITUS)
+        // Alamat bawaan Pages: cadangan bila resolver jaringan belum mengenal nama domain kustom.
+        if (!keluar.includes(SITUS_CADANGAN)) keluar.push(SITUS_CADANGAN)
         return keluar
       }
 
